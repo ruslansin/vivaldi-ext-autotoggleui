@@ -3,6 +3,7 @@
 vivaldi.jdhooks.onUIReady(function () {
     var uiActions = vivaldi.jdhooks.require('_UIActions');
 
+    var header = document.getElementById("header");
     var body = document.getElementsByTagName("body")[0];
     var footer = document.getElementById("footer");
     var webview = document.getElementById("webview-container");
@@ -22,7 +23,6 @@ vivaldi.jdhooks.onUIReady(function () {
     var isVisible = isAddressVisible;
 
     function toggleUI() {
-        size.body = body.clientHeight;
         uiActions.toggleUI();
         isVisible = !isVisible;
     }
@@ -41,7 +41,8 @@ vivaldi.jdhooks.onUIReady(function () {
     body.addEventListener("mousemove", function (e) {
         var y = e.clientY;
 
-        if ((y <= 10 && !isVisible) || (y >= size.body - 15 && !isVisible))
+        if ((y <= header.clientHeight + 8 && !isVisible) 
+            || (y >= body.clientHeight - 8 && !isVisible))
             toggleUI();
     });
 
